@@ -1,0 +1,23 @@
+---
+description: Core standards and constraints for status.hovanhoa.net project
+alwaysApply: true
+---
+
+# Project Standards
+
+- **Tech stack**: Next.js/TypeScript with idiomatic React and JSX.
+- **Styling**: Prefer Tailwind CSS utility classes, consistent with existing usage.
+- **Accessibility**: Ensure links, headings, and interactive elements are accessible and keyboard-friendly.
+
+# Code Style
+
+- **TypeScript**: Use explicit types for public functions and components when helpful.
+- **Components**: Use functional React components, avoid unnecessary state, and prefer composition.
+- **Imports**: Keep imports ordered and remove unused imports when touching a file.
+
+# Cursor Interaction
+
+- **Responses**: Keep answers concise and focused; avoid unnecessary verbosity.
+- **Edits**: Prefer small, focused changes and keep behavior of `pages` and `src` components intact unless requested.
+- **Tests**: When adding non-trivial logic, prefer adding or updating tests if a test setup exists.
+
