@@ -1,9 +1,10 @@
 
-# Fettle 💟 
+# hovanhoa | status
 
-**Fettle** is the open-source status page, powered entirely by GitHub Actions, Issues, and Pages.
+This repository powers the personal status page for `hovanhoa` at `https://status.hovanhoa.net/`, built on top of GitHub Actions, Issues, and Pages.  
+Source: `https://github.com/dryfolio/status.hovanhoa.net`.
 
-<img src="./public/ss.png" />
+<img src="./public/ss.png" alt="Status page screenshot" />
 
 
 # Usage
@@ -17,27 +18,24 @@ Google=https://google.com
 Facebook=https://facebook.com
 ```
 
-## Incidents URL update
-Go to `src > incidents > hooks > useIncidents.tsx` file and update the url with your repository url.
+## Incidents URL
+Incidents are loaded from GitHub Issues with the `incident` label.
 
-Replace **hovanhoa/fettle** with your **username/repo-name**
-```
-https://api.github.com/repos/hovanhoa/fettle/issues?per_page=20&state=all&labels=incident
-```
+- Default repository: `dryfolio/status.hovanhoa.net`
+- API endpoint:
 
-## Service status URL update
-Go to `src > services > hooks > useServices.tsx` file and update the url with your repository url.
-
-Replace **hovanhoa/fettle** with your **username/repo-name**
-```
-https://raw.githubusercontent.com/hovanhoa/fettle/main/public/status/${key}_report.log
+```text
+https://api.github.com/repos/dryfolio/status.hovanhoa.net/issues?per_page=20&state=all&labels=incident
 ```
 
-Go to `src > services > hooks > useSystemStatus.tsx` file and update the url with your repository url.
+## Service status URLs
+Service status is loaded from log files stored in this repository under `public/status`.
 
-Replace **hovanhoa/fettle** with your **username/repo-name**
-```
-https://raw.githubusercontent.com/hovanhoa/fettle/main/public/status/${key}_report.log
+- Default repository: `dryfolio/status.hovanhoa.net`
+- Raw content endpoint:
+
+```text
+https://raw.githubusercontent.com/dryfolio/status.hovanhoa.net/main/public/status/${key}_report.log
 ```
 
 ## Deployment setup
