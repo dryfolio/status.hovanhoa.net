@@ -23,7 +23,7 @@ const ServiceLog: FunctionComponent<ServiceLogProps> = ({ item }) => {
             case Status.PARTIAL_OUTAGE:
                 return <div onMouseOver={() => setShow(true)} onMouseLeave={() => setShow(false)} className='bg-orange-300 ml-0.5 sm:rounded-lg flex-1 h-8' >
                     <StatusView item={item} show={show} />
-                </div>;                
+                </div>;
             default:
                 return <div onMouseOver={() => setShow(true)} onMouseLeave={() => setShow(false)} className='bg-green-500 ml-0.5 sm:rounded-lg flex-1 h-8' >
                     <StatusView item={item} show={show} />
@@ -31,11 +31,9 @@ const ServiceLog: FunctionComponent<ServiceLogProps> = ({ item }) => {
         }
     }
     return (
-        <>
-            {
-                statusView(item.status)
-            }
-        </ >
+        <div>
+            {statusView(item.status)}
+        </div>
     )
 }
 

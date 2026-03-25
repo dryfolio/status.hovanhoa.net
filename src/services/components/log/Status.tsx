@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react"
-import Log from "../../types/Log"
 import LogDaySummary from "../../types/LogDaySummary"
 
 interface ServiceLogProps {
@@ -8,16 +7,12 @@ interface ServiceLogProps {
 }
 
 const StatusView: FunctionComponent<ServiceLogProps> = ({ item, show }) => {
+    if (!show) return null;
     return (
-        <>
-            {
-                show &&
-                <div className="absolute card mt-10 pl-5 pr-5">
-                    <p>Date: {item.date}</p>
-                    <p>Status: {item.status}</p>
-                </div>
-            }
-        </>
+        <div className="absolute card mt-10 pl-5 pr-5">
+            <p>Date: {item.date}</p>
+            <p>Status: {item.status}</p>
+        </div>
     )
 }
 

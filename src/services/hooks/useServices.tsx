@@ -20,8 +20,8 @@ function useServices() {
                 const services: Service[] = []
                 for (let ii = 0; ii < configLines.length; ii++) {
                     const configLine = configLines[ii];
-                    const [key, url] = configLine.split("=");
-                    if (!key || !url) {
+                    const [key, _url] = configLine.split("=");
+                    if (!key || !_url) {
                         continue;
                     }
                     const log = await logs(key);
@@ -45,30 +45,31 @@ function useServices() {
     return [data, isLoading, error];
 }
 
-async function logs(key: string): Promise<LogDaySummary[]> {
-    const response = await fetch(`https://raw.githubusercontent.com/dryfolio/status.hovanhoa.net/main/public/status/${key}_report.log`);
+async function logs(serviceKey: string): Promise<LogDaySummary[]> {
+    const response = await fetch(`https://raw.githubusercontent.com/dryfolio/status.hovanhoa.net/main/public/status/${serviceKey}_report.log`);
 
     const text = await response.text();
     const lines = text.split("\n");
-    const logs: Log[] = [];
-    const logDaySummary: LogDaySummary[] = [];
 
+    const parsedLogs: Log[] = [];
     lines.forEach((line: string) => {
         const [created_at, status, response_time] = line.split(", ");
-        logs.push({ id: created_at, response_time, status, created_at })
-    })
+        if (created_at) {
+            parsedLogs.push({ id: created_at, response_time, status, created_at });
+        }
+    });
 
-    const prepareSummary = Object.values(logs.reduce((r: any, date) => {
-        const [year, month, day] = date.created_at.substr(0, 10).split('-');
-        const key = `${day}_${month}_${year}`;
-        r[key] = r[key] || { date: date.created_at, logs: [] };
-        r[key].logs.push(date);
+    const prepareSummary = Object.values(parsedLogs.reduce((r: Record<string, { date: string; logs: Log[] }>, logEntry) => {
+        const [year, month, day] = logEntry.created_at.slice(0, 10).split('-');
+        const dayKey = `${day}_${month}_${year}`;
+        r[dayKey] = r[dayKey] || { date: logEntry.created_at, logs: [] };
+        r[dayKey].logs.push(logEntry);
         return r;
     }, {}));
 
 
-    prepareSummary.forEach((logSummary: any) => {
-        var avg_response_time = 0
+    prepareSummary.forEach((logSummary: { date: string; logs: Log[] }) => {
+        let avg_response_time = 0
 
         logSummary.logs.forEach((log: Log) => {
             if (log.response_time) {
@@ -79,9 +80,9 @@ async function logs(key: string): Promise<LogDaySummary[]> {
         let status = ""
         if (logSummary.logs.length === 0) {
             status = "unknown"
-        } else if (logSummary.logs.every((item:any)=> item.status === 'success')) {
+        } else if (logSummary.logs.every((item) => item.status === 'success')) {
             status = Status.OPERATIONAL
-        } else if (logSummary.logs.every((item:any)=> item.status === 'failed')) {
+        } else if (logSummary.logs.every((item) => item.status === 'failed')) {
             status = Status.OUTAGE
         } else {
             status = Status.PARTIAL_OUTAGE
@@ -90,7 +91,7 @@ async function logs(key: string): Promise<LogDaySummary[]> {
         logDaySummary.push({
             avg_response_time: avg_response_time / logSummary.logs.length,
             current_status: logSummary.logs[logSummary.logs.length - 1].status,
-            date: logSummary.date.substr(0, 10),
+            date: logSummary.date.slice(0, 10),
             status: status
         })
     })
@@ -101,15 +102,15 @@ async function logs(key: string): Promise<LogDaySummary[]> {
 
 function fillData(data: LogDaySummary[]): LogDaySummary[] {
     const logDaySummary: LogDaySummary[] = [];
-    var today = new Date();
+    const today = new Date();
 
-    for (var i = -1; i < 89; i += 1) {
+    for (let i = -1; i < 89; i += 1) {
         const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-        const summary = data.find((item) => item.date === d.toISOString().substr(0, 10));
+        const summary = data.find((item) => item.date === d.toISOString().slice(0, 10));
         logDaySummary.push({
             avg_response_time: summary?.avg_response_time || 0,
             current_status: summary?.current_status || "unknown",
-            date: d.toISOString().substr(0, 10),
+            date: d.toISOString().slice(0, 10),
             status: summary?.status || "unknown"
         })
     }

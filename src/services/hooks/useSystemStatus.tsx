@@ -18,8 +18,8 @@ function useSystemStatus() {
                 const services: ServiceStatus[] = [];
                 for (let ii = 0; ii < configLines.length; ii++) {
                     const configLine = configLines[ii];
-                    const [key, url] = configLine.split("=");
-                    if (!key || !url) {
+                    const [key, _url] = configLine.split("=");
+                    if (!key || !_url) {
                         continue;
                     }
                     const status = await logs(key);

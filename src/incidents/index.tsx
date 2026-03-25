@@ -1,6 +1,6 @@
 import useIncidents from "./hooks/useIncidents";
 import type { NextPage } from "next";
-import Incidents from "./types/Incident";
+import Incident from "./types/Incident";
 import MonthlyIncident from "./types/MonthlyIncident";
 
 const IncidentsSection: NextPage = () => {
@@ -21,12 +21,12 @@ const IncidentsSection: NextPage = () => {
 				<p>Loading...</p>
 			) : (
 				<div>
-					{(monthlyIncidents as MonthlyIncident[]).map((incidents) => (
-						<div className="mb-10" key={incidents.month}>
-							<p className="mr-5 text-2xl font-semibold leading-6 text-gray-900">{incidents.month}</p>
+					{monthlyIncidents.map((monthGroup) => (
+						<div className="mb-10" key={monthGroup.month}>
+							<p className="mr-5 text-2xl font-semibold leading-6 text-gray-900">{monthGroup.month}</p>
 							<div className="mt-2 flex-1 h-px  bg-gray-300" />
 							<div className="ml-6 border-l-4">
-								{(incidents.incidents as Incidents[]).map((incident) => (
+								{(monthGroup.incidents ?? []).map((incident) => (
 									<div className="flex" key={incident.id}>
 										<div className="-ml-4 mt-6 flex rounded-full w-7 h-7 bg-gray-300">
 											<svg
@@ -51,7 +51,7 @@ const IncidentsSection: NextPage = () => {
 													</p>
 													<p className="text-sm text-gray-500">
 														{formatDate(incident.created_at)} -{" "}
-														{formatDate(incident.closed_at)}
+														{incident.closed_at ? formatDate(incident.closed_at) : 'N/A'}
 													</p>
 												</div>
 											) : (
