@@ -1,17 +1,17 @@
-import useIncidents from "./hooks/useIncidents";
-import type { NextPage } from "next";
-import Incidents from "./types/Incident";
-import MonthlyIncident from "./types/MonthlyIncident";
+import useIncidents from './hooks/useIncidents';
+import type { NextPage } from 'next';
+import Incidents from './types/Incident';
+import MonthlyIncident from './types/MonthlyIncident';
 
 const IncidentsSection: NextPage = () => {
 	const [monthlyIncidents, isIncidentsLoading] = useIncidents();
 
 	const formatDate = (date: string) => {
 		return new Date(date).toLocaleString([], {
-			month: "short",
-			day: "numeric",
-			hour: "numeric",
-			minute: "numeric",
+			month: 'short',
+			day: 'numeric',
+			hour: 'numeric',
+			minute: 'numeric',
 		});
 	};
 
@@ -23,7 +23,9 @@ const IncidentsSection: NextPage = () => {
 				<div>
 					{(monthlyIncidents as MonthlyIncident[]).map((incidents) => (
 						<div className="mb-10" key={incidents.month}>
-							<p className="mr-5 text-2xl font-semibold leading-6 text-gray-900">{incidents.month}</p>
+							<p className="mr-5 text-2xl font-semibold leading-6 text-gray-900">
+								{incidents.month}
+							</p>
 							<div className="mt-2 flex-1 h-px  bg-gray-300" />
 							<div className="ml-6 border-l-4">
 								{(incidents.incidents as Incidents[]).map((incident) => (
@@ -44,20 +46,21 @@ const IncidentsSection: NextPage = () => {
 											<p className="text-base font-semibold leading-6 text-gray-900">
 												{incident.title}
 											</p>
-											{incident.status === "closed" ? (
+											{incident.status === 'closed' ? (
 												<div>
 													<p className="text-sm text-gray-500">
 														This incident has been resolved.
 													</p>
 													<p className="text-sm text-gray-500">
-														{formatDate(incident.created_at)} -{" "}
+														{formatDate(incident.created_at)} -{' '}
 														{formatDate(incident.closed_at)}
 													</p>
 												</div>
 											) : (
 												<div>
 													<p className="text-sm text-gray-500">
-														This incident is currently being investigated.
+														This incident is currently being
+														investigated.
 													</p>
 													<p className="text-sm text-gray-500">
 														{formatDate(incident.created_at)}

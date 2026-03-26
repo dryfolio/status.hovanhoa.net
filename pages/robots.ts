@@ -1,27 +1,27 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next';
 
-const STATUS_URL = 'https://status.hovanhoa.net'
+const STATUS_URL = 'https://status.hovanhoa.net';
 
 function generateRobots() {
-  return `User-agent: *
+	return `User-agent: *
 Allow: /
 Sitemap: ${STATUS_URL}/sitemap.xml
 Host: ${STATUS_URL}
-`
+`;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const robots = generateRobots()
+	const robots = generateRobots();
 
-  res.setHeader('Content-Type', 'text/plain')
-  res.write(robots)
-  res.end()
+	res.setHeader('Content-Type', 'text/plain');
+	res.write(robots);
+	res.end();
 
-  return {
-    props: {},
-  }
-}
+	return {
+		props: {},
+	};
+};
 
 export default function Robots() {
-  return null
+	return null;
 }

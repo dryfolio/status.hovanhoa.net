@@ -33,6 +33,7 @@ This repository powers the `hovanhoa | status` page at `https://status.hovanhoa.
 ### Hardcoded Repository References
 
 Several hooks contain hardcoded references to the `dryfolio/status.hovanhoa.net` repository that must be updated if forking:
+
 - Raw content URLs in `useServices.tsx` / `useSystemStatus.tsx`
 - GitHub Issues API URL in `useIncidents.tsx`
 
