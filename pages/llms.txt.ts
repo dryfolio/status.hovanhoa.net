@@ -1,19 +1,19 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next';
 
-const NAME = 'hovanhoa'
-const FULL_NAME = 'Hồ Văn Hòa'
-const BASE_URL = 'https://hovanhoa.net'
-const STATUS_URL = 'https://status.hovanhoa.net'
-const INSIGHT_URL = 'https://insight.hovanhoa.net'
-const GALLERY_URL = 'https://gallery.hovanhoa.net'
-const INFO_URL = 'https://info.hovanhoa.net'
-const TWITTER = '_hovanhoa_'
-const LINKEDIN = 'hovanhoa'
-const GITHUB = 'hovanhoa'
-const ROLE = 'Software Engineer'
+const NAME = 'hovanhoa';
+const FULL_NAME = 'Hồ Văn Hòa';
+const BASE_URL = 'https://hovanhoa.net';
+const STATUS_URL = 'https://status.hovanhoa.net';
+const INSIGHT_URL = 'https://insight.hovanhoa.net';
+const GALLERY_URL = 'https://gallery.hovanhoa.net';
+const INFO_URL = 'https://info.hovanhoa.net';
+const TWITTER = '_hovanhoa_';
+const LINKEDIN = 'hovanhoa';
+const GITHUB = 'hovanhoa';
+const ROLE = 'Software Engineer';
 
 function generateLlms() {
-    return `# About ${FULL_NAME}
+	return `# About ${FULL_NAME}
 
 ## Basic Information
 - Name: ${FULL_NAME}
@@ -48,21 +48,21 @@ Software Engineer with 3+ years of experience. I am confident in my knowledge of
 ## Contact
 Check out ${INFO_URL} to connect with me!
 Monitor my services at ${STATUS_URL}.
-`
+`;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-    const llmsContent = generateLlms()
+	const llmsContent = generateLlms();
 
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-    res.write(llmsContent)
-    res.end()
+	res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+	res.write(llmsContent);
+	res.end();
 
-    return {
-        props: {},
-    }
-}
+	return {
+		props: {},
+	};
+};
 
 export default function Llms() {
-    return null
+	return null;
 }

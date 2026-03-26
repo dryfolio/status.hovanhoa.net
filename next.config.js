@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 
-const production = process.env.NODE_ENV === "production";
+const production = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
-  ...(production && { assetPrefix: '/' }),
-  reactStrictMode: true,
-  swcMinify: true,
-}
+	...(production && { assetPrefix: '/' }),
+	reactStrictMode: true,
+	swcMinify: true,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
