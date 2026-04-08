@@ -60,9 +60,14 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({ item }) => {
 			<div className="flex">
 				<Icon />
 				<div className="w-full flex justify-between items-baseline">
-					<p className="ml-4 text-base font-semibold leading-6 text-gray-900">
+					<a
+						href={`https://${item.name}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="ml-4 text-base font-semibold leading-6 text-gray-900 hover:underline"
+					>
 						{item.name}
-					</p>
+					</a>
 					<p className="text-xs text-gray-400 items-baseline	self-baseline">
 						{' '}
 						{calculateUpTime()}% operational in last 90 days
