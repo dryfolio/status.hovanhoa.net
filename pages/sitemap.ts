@@ -38,6 +38,12 @@ function generateSitemap() {
 			changeFrequency: 'monthly',
 			priority: 0.8,
 		},
+		{
+			url: 'https://music.hovanhoa.net',
+			lastModified: new Date().toISOString(),
+			changeFrequency: 'daily',
+			priority: 0.8,
+		},
 	];
 
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
