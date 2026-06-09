@@ -51,20 +51,20 @@ const ServicesSection: NextPage = () => {
 	};
 
 	return (
-		<div className="mt-10">
-			<div className="mx-px md:ml-80 md:mr-80 bg-white dark:bg-slate-800 rounded-xl card">
+		<div className="mt-12">
+			<div className="card">
 				<div className="w-full flex justify-between pt-2 pl-6 pr-6 pb-2">
 					<div className="flex items-center sm:text-xl text-xs font-semibold leading-7">
 						<Icon />
-						<p className="ml-3 text-gray-900">{systemStatus?.title}</p>
+						<p className="ml-3 text-[var(--rd-text)]">{systemStatus?.title}</p>
 					</div>
 					<div>
-						<p className="text-xs text-gray-400">Last updated</p>
-						<p className="text-xs text-gray-400 text-end ">{systemStatus?.datetime}</p>
+						<p className="text-xs text-[var(--rd-text-3)]">Last updated</p>
+						<p className="text-xs text-[var(--rd-text-3)] text-end ">{systemStatus?.datetime}</p>
 					</div>
 				</div>
 			</div>
-			<div className="mx-px mt-10 md:ml-60 md:mr-60">
+			<div className="mt-10">
 				<div className="card-body">
 					{isServicesLoading ? (
 						<p>Loading...</p>
@@ -76,7 +76,7 @@ const ServicesSection: NextPage = () => {
 						</ul>
 					)}
 				</div>
-				<p className="mt-10 sm:text-lg	text-base font-semibold leading-7 text-gray-900">
+				<p className="mt-10 sm:text-lg	text-base font-semibold leading-7 text-[var(--rd-text)]">
 					Recent incident
 				</p>
 				<IncidentsSection />
