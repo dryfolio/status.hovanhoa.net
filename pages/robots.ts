@@ -1,11 +1,13 @@
 import { GetServerSideProps } from 'next';
 
 const STATUS_URL = 'https://status.hovanhoa.net';
+const MUSIC_URL = 'https://music.hovanhoa.net';
 
 function generateRobots() {
 	return `User-agent: *
 Allow: /
 Sitemap: ${STATUS_URL}/sitemap.xml
+Sitemap: ${MUSIC_URL}/sitemap.xml
 Host: ${STATUS_URL}
 `;
 }
