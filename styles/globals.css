@@ -1,20 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
 	body {
-		@apply bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-50;
+		color: var(--rd-text-2);
+		background-color: #faf9f6;
+		background-image: radial-gradient(
+			rgba(12, 12, 12, 0.05) 1px,
+			transparent 1.4px
+		);
+		background-size: 22px 22px;
+		background-attachment: fixed;
+		font-family: var(--font-sans);
+		text-transform: lowercase;
+	}
+
+	.dark body {
+		background-color: var(--rd-bg);
+		background-image: radial-gradient(
+			rgba(255, 255, 255, 0.05) 1px,
+			transparent 1.4px
+		);
 	}
 
 	a {
-		@apply text-blue-500 dark:text-blue-400;
+		@apply text-[var(--rd-accent-ink)];
 	}
 }
 
 @layer components {
 	.card {
-		@apply p-4 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 shadow rounded-lg p-4 mb-2;
+		@apply p-4 bg-[var(--rd-surface)] border border-[var(--rd-border)] rounded-[var(--rd-r)] mb-2;
 	}
 
 	.pill {
@@ -33,7 +52,7 @@
 		border-radius: 3.75px;
 	}
 	.bar {
-		@apply bg-gray-300 dark:bg-gray-600;
+		background: var(--rd-surface-2);
 		padding-bottom: 1px;
 		height: 100%;
 		width: 85%;
@@ -41,15 +60,15 @@
 	}
 
 	.bar.green {
-		@apply bg-green-400 dark:bg-green-700;
+		background: var(--rd-ok);
 	}
 
 	.bar.red {
-		@apply bg-red-400 dark:bg-red-700;
+		background: var(--rd-down);
 	}
 
 	.bar.yellow {
-		@apply bg-yellow-400 dark:bg-yellow-700;
+		background: var(--rd-warn);
 	}
 
 	.tooltip {
@@ -58,11 +77,110 @@
 
 	.tooltip .content {
 		@apply invisible absolute z-50 inline-block;
-		@apply rounded-lg py-1 px-2 bg-gray-100 dark:bg-gray-800 shadow;
+		@apply rounded-lg py-1 px-2 shadow;
 		@apply opacity-0 transition-all duration-200 scale-50;
+		background: var(--rd-surface-2);
+		color: var(--rd-text);
 	}
 
 	.tooltip:hover .content {
 		@apply visible opacity-100 scale-100;
 	}
+}
+
+/* ============================================================
+   Editorial redesign — additive design-token layer.
+   Shared across the hovanhoa.net family. Neutral canvas +
+   single orange accent, Geist sans/mono (loaded via @import).
+   ============================================================ */
+:root {
+	/* neutrals (light) */
+	--rd-bg: #ffffff;
+	--rd-bg-sub: #fafafa;
+	--rd-surface: #ffffff;
+	--rd-surface-2: #f6f6f5;
+	--rd-border: #e8e8e6;
+	--rd-border-2: #dededc;
+	--rd-line: #ededeb;
+	--rd-text: #0c0c0c;
+	--rd-text-2: #54534f;
+	--rd-text-3: #8c8b85;
+	--rd-text-4: #b6b5ae;
+
+	/* accent (orange) */
+	--rd-accent: #d8602f;
+	--rd-accent-ink: #b54a1f;
+	--rd-accent-bg: #fbeee7;
+
+	/* status */
+	--rd-ok: #1f8a5b;
+	--rd-warn: #c98a16;
+	--rd-down: #d23b3b;
+
+	/* shape */
+	--rd-r-sm: 7px;
+	--rd-r: 11px;
+	--rd-r-lg: 16px;
+
+	/* layout */
+	--rd-maxw: 1180px;
+	--rd-pad: clamp(20px, 5vw, 56px);
+
+	/* fonts — Geist via Google Fonts @import above */
+	--font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+	--font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+.dark {
+	--rd-bg: #0a0a0a;
+	--rd-bg-sub: #0e0e0e;
+	--rd-surface: #111111;
+	--rd-surface-2: #161616;
+	--rd-border: #242424;
+	--rd-border-2: #2e2e2e;
+	--rd-line: #1d1d1d;
+	--rd-text: #f4f3f1;
+	--rd-text-2: #a7a6a1;
+	--rd-text-3: #74736e;
+	--rd-text-4: #4a4a47;
+	--rd-accent: #f0743f;
+	--rd-accent-ink: #f59568;
+	--rd-accent-bg: #2a1810;
+	--rd-ok: #43c089;
+	--rd-warn: #e0a93a;
+	--rd-down: #f06464;
+}
+
+.rd-eyebrow {
+	font-family: var(--font-mono);
+	font-size: 11.5px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--rd-text-3);
+	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+	gap: 9px;
+	white-space: nowrap;
+}
+
+.rd-lead {
+	font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+	color: var(--rd-text-2);
+	line-height: 1.6;
+	max-width: 46ch;
+	text-wrap: pretty;
+}
+
+.rd-ulink {
+	color: var(--rd-text);
+	border-bottom: 1.5px solid var(--rd-border-2);
+	transition:
+		border-color 0.18s,
+		color 0.18s;
+	font-weight: 500;
+}
+.rd-ulink:hover {
+	border-color: var(--rd-accent);
+	color: var(--rd-accent-ink);
 }

@@ -64,11 +64,11 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({ item }) => {
 						href={`https://${item.name}`}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="ml-4 text-base font-semibold leading-6 text-gray-900 hover:underline"
+						className="ml-4 text-base font-semibold leading-6 text-[var(--rd-text)] hover:underline"
 					>
 						{item.name}
 					</a>
-					<p className="text-xs text-gray-400 items-baseline	self-baseline">
+					<p className="text-xs text-[var(--rd-text-3)] items-baseline	self-baseline">
 						{' '}
 						{calculateUpTime()}% operational in last 90 days
 					</p>

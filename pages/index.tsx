@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
-import IncidentsSection from '../src/incidents';
 import ServicesSection from '../src/services';
+import Navbar from '../src/components/nav';
+import { Footer } from '../src/components/footer';
+import { Eyebrow } from '../src/components/redesign/eyebrow';
 
 const Home: NextPage = () => {
 	return (
@@ -25,24 +26,38 @@ const Home: NextPage = () => {
 					}),
 				}}
 			/>
-			<div className="h-full w-full ">
-				<div className="mt-20 absolute inset-0 bg-[url(/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-				<div className="w-full h-40 absolute bg-light-purple dark:purple dark:bg-black">
-					<div className="sm:ml-0 ml-5 mr-0 mt-10 md:pl-80 md:pr-80 sm:w-full h-full bg-purple-500 dark:bg-black flex">
-						<a
-							href="https://hovanhoa.net"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="cursor-pointer"
-						>
-							<h1 className="text-white text-2xl font-bold">hovanhoa</h1>
-						</a>
+			<main className="min-h-screen">
+				{/* sticky header */}
+				<header className="sticky top-0 z-50 border-b border-[var(--rd-border-2)] bg-[var(--rd-bg-sub)] shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+					<div className="mx-auto w-full max-w-[var(--rd-maxw)] px-[var(--rd-pad)] py-3">
+						<Navbar />
+					</div>
+				</header>
+				{/* header panel */}
+				<div
+					className="border-b border-[var(--rd-border)]"
+					style={{
+						background:
+							'radial-gradient(100% 140% at 0% 0%, var(--rd-accent-bg), transparent 55%), var(--rd-surface-2)',
+					}}
+				>
+					<div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)] pt-12 pb-12">
+						<Eyebrow>hovanhoa · status</Eyebrow>
+						<h1 className="mt-[18px] text-[clamp(2rem,4.6vw,3.4rem)] font-semibold tracking-[-0.04em] text-[var(--rd-text)]">
+							service status
+						</h1>
+						<p className="rd-lead mt-5">
+							uptime and availability across the hovanhoa.net
+							services, checked regularly over the last 90 days.
+						</p>
 					</div>
 				</div>
-				<div className="mt-20 w-full absolute overflow-scroll	">
+				{/* body */}
+				<div className="mx-auto max-w-[var(--rd-maxw)] px-[var(--rd-pad)]">
 					<ServicesSection />
 				</div>
-			</div>
+				<Footer />
+			</main>
 		</>
 	);
 };

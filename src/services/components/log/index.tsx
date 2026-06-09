@@ -17,7 +17,7 @@ const ServiceLog: FunctionComponent<ServiceLogProps> = ({ item }) => {
 					<div
 						onMouseOver={() => setShow(true)}
 						onMouseLeave={() => setShow(false)}
-						className="bg-gray-300 ml-0.5 sm:rounded-lg flex-1 h-8"
+						className="bg-[var(--rd-border-2)] ml-0.5 sm:rounded-lg flex-1 h-8"
 					>
 						<StatusView item={item} show={show} />
 					</div>
