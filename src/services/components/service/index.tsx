@@ -59,17 +59,16 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({ item }) => {
 		<div className="mb-10">
 			<div className="flex">
 				<Icon />
-				<div className="w-full flex justify-between items-baseline">
+				<div className="ml-4 w-full flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
 					<a
 						href={`https://${item.name}`}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="ml-4 text-base font-semibold leading-6 text-[var(--rd-text)] hover:underline"
+						className="text-base font-semibold leading-6 text-[var(--rd-text)] hover:underline break-all"
 					>
 						{item.name}
 					</a>
-					<p className="text-xs text-[var(--rd-text-3)] items-baseline	self-baseline">
-						{' '}
+					<p className="mt-0.5 text-xs text-[var(--rd-text-3)] sm:mt-0 sm:ml-2 sm:whitespace-nowrap sm:self-baseline">
 						{calculateUpTime()}% operational in last 90 days
 					</p>
 				</div>
