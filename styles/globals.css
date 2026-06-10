@@ -7,23 +7,13 @@
 @layer base {
 	body {
 		color: var(--rd-text-2);
-		background-color: #faf9f6;
-		background-image: radial-gradient(
-			rgba(12, 12, 12, 0.05) 1px,
-			transparent 1.4px
-		);
-		background-size: 22px 22px;
-		background-attachment: fixed;
+		background-color: #ffffff;
 		font-family: var(--font-sans);
 		text-transform: lowercase;
 	}
 
 	.dark body {
 		background-color: var(--rd-bg);
-		background-image: radial-gradient(
-			rgba(255, 255, 255, 0.05) 1px,
-			transparent 1.4px
-		);
 	}
 
 	a {
