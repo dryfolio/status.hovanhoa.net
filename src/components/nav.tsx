@@ -285,20 +285,10 @@ export default function Navbar() {
                     <a href={`${BASE_URL}/#blog`} className={linkClass}>
                         blog
                     </a>
-                    <a
-                        href={INSIGHT_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={linkClass}
-                    >
+                    <a href={INSIGHT_URL} className={linkClass}>
                         insight
                     </a>
-                    <a
-                        href={GALLERY_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={linkClass}
-                    >
+                    <a href={GALLERY_URL} className={linkClass}>
                         gallery
                     </a>
                 </div>
@@ -340,12 +330,6 @@ export default function Navbar() {
                                                             ? 'page'
                                                             : undefined
                                                     }
-                                                    {...(it.external
-                                                        ? {
-                                                              target: '_blank',
-                                                              rel: 'noopener noreferrer',
-                                                          }
-                                                        : {})}
                                                     onClick={() =>
                                                         setOpen(false)
                                                     }
