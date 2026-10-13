@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import {
     RiBookOpenLine,
+    RiBookShelfLine,
     RiGithubFill,
     RiHome5Line,
     RiImageLine,
@@ -22,6 +23,7 @@ const GALLERY_URL = 'https://gallery.hovanhoa.net'
 const MUSIC_URL = 'https://music.hovanhoa.net'
 const STATUS_URL = 'https://status.hovanhoa.net'
 const INFO_URL = 'https://info.hovanhoa.net'
+const BOOK_URL = 'https://book.hovanhoa.net'
 const GITHUB = 'hovanhoa'
 const TWITTER = '_hovanhoa_'
 const LINKEDIN = 'hovanhoa'
@@ -92,6 +94,13 @@ const COLUMNS: Column[] = [
                 desc: 'links & bio',
                 href: INFO_URL,
                 icon: RiLinksLine,
+                external: true,
+            },
+            {
+                label: 'book',
+                desc: 'reading list',
+                href: BOOK_URL,
+                icon: RiBookShelfLine,
                 external: true,
             },
         ],
