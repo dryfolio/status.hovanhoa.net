@@ -311,6 +311,9 @@ export default function Navbar() {
                     <a href={BOOK_URL} className={`${linkClass} hidden xl:inline`}>
                         book
                     </a>
+                    <a href={STATUS_URL} className={`${linkClass} hidden xl:inline`}>
+                        status
+                    </a>
                 </div>
             </div>
 
