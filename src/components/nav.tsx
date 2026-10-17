@@ -18,6 +18,7 @@ import {
 } from '@remixicon/react'
 // site config — status has no shared @/constants module, so inline it here
 const BASE_URL = 'https://hovanhoa.net'
+const BLOG_URL = 'https://blog.hovanhoa.net'
 const INSIGHT_URL = 'https://insight.hovanhoa.net'
 const GALLERY_URL = 'https://gallery.hovanhoa.net'
 const MUSIC_URL = 'https://music.hovanhoa.net'
@@ -45,22 +46,30 @@ const COLUMNS: Column[] = [
         title: 'this site',
         items: [
             {
-                label: 'home',
-                desc: 'profile & writing',
-                href: BASE_URL,
-                icon: RiHome5Line,
-            },
-            {
-                label: 'blog',
-                desc: 'notes & posts',
-                href: `${BASE_URL}/#blog`,
-                icon: RiBookOpenLine,
+                label: 'status',
+                desc: 'service uptime',
+                href: STATUS_URL,
+                icon: RiServerLine,
             },
         ],
     },
     {
         title: 'the family',
         items: [
+            {
+                label: 'home',
+                desc: 'profile & writing',
+                href: BASE_URL,
+                icon: RiHome5Line,
+                external: true,
+            },
+            {
+                label: 'blog',
+                desc: 'notes & posts',
+                href: BLOG_URL,
+                icon: RiBookOpenLine,
+                external: true,
+            },
             {
                 label: 'insight',
                 desc: 'coding activity',
@@ -80,13 +89,6 @@ const COLUMNS: Column[] = [
                 desc: "what's on repeat",
                 href: MUSIC_URL,
                 icon: RiMusic2Line,
-                external: true,
-            },
-            {
-                label: 'status',
-                desc: 'service uptime',
-                href: STATUS_URL,
-                icon: RiServerLine,
                 external: true,
             },
             {
@@ -294,11 +296,20 @@ export default function Navbar() {
                     <a href={BASE_URL} className={linkClass}>
                         home
                     </a>
+                    <a href={BLOG_URL} className={linkClass}>
+                        blog
+                    </a>
                     <a href={INSIGHT_URL} className={linkClass}>
                         insight
                     </a>
-                    <a href={GALLERY_URL} className={linkClass}>
+                    <a href={GALLERY_URL} className={`${linkClass} hidden lg:inline`}>
                         gallery
+                    </a>
+                    <a href={MUSIC_URL} className={`${linkClass} hidden lg:inline`}>
+                        music
+                    </a>
+                    <a href={BOOK_URL} className={`${linkClass} hidden xl:inline`}>
+                        book
                     </a>
                 </div>
             </div>
