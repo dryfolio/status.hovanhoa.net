@@ -1,86 +1,32 @@
 import useServices from './hooks/useServices';
-import type { NextPage } from 'next';
+import type { FunctionComponent } from 'react';
 import Service from './types/Service';
 import ServiceItem from './components/service';
-import IncidentsSection from '../incidents';
-import useSystemStatus from './hooks/useSystemStatus';
-import { Status } from '../utils/constants';
 
-const ServicesSection: NextPage = () => {
+const ServicesSection: FunctionComponent = () => {
 	const [data, isServicesLoading] = useServices();
-	const { systemStatus, isLoading } = useSystemStatus();
-
-	const Icon = () => {
-		if (systemStatus?.status === Status.OPERATIONAL) {
-			return (
-				<svg className="h-6 w-6 flex-none fill-sky-100 stroke-green-500 stroke-2">
-					<circle cx="12" cy="12" r="11" />
-					<path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
-				</svg>
-			);
-		} else if (systemStatus?.status === Status.PARTIAL_OUTAGE) {
-			return (
-				<svg
-					className="h-8 w-8 flex-none"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 512 512"
-					fill="orange"
-				>
-					<path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm0 319.91a20 20 0 1 1 20-20 20 20 0 0 1-20 20zm21.72-201.15-5.74 122a16 16 0 0 1-32 0l-5.74-121.94v-.05a21.74 21.74 0 1 1 43.44 0z"></path>
-				</svg>
-			);
-		} else if (systemStatus?.status === Status.OUTAGE) {
-			return (
-				<svg
-					className="h-8 w-8 flex-none"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 512 512"
-					fill="red"
-				>
-					<path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm0 319.91a20 20 0 1 1 20-20 20 20 0 0 1-20 20zm21.72-201.15-5.74 122a16 16 0 0 1-32 0l-5.74-121.94v-.05a21.74 21.74 0 1 1 43.44 0z"></path>
-				</svg>
-			);
-		} else {
-			return (
-				<svg className="h-6 w-6 flex-none fill-sky-100 stroke-green-500 stroke-2">
-					<circle cx="12" cy="12" r="11" />
-					<path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
-				</svg>
-			);
-		}
-	};
+	const services = (data as Service[]) || [];
 
 	return (
-		<div className="mt-12">
-			<div className="card">
-				<div className="w-full flex justify-between pt-2 pl-6 pr-6 pb-2">
-					<div className="flex items-center sm:text-xl text-xs font-semibold leading-7">
-						<Icon />
-						<p className="ml-3 text-[var(--rd-text)]">{systemStatus?.title}</p>
-					</div>
-					<div>
-						<p className="text-xs text-[var(--rd-text-3)]">Last updated</p>
-						<p className="text-xs text-[var(--rd-text-3)] text-end ">{systemStatus?.datetime}</p>
-					</div>
-				</div>
+		<div className="rounded-[var(--rd-r-lg)] border border-[var(--rd-border)] bg-[var(--rd-surface)]">
+			<div className="flex items-center justify-between border-b border-[var(--rd-line)] px-[1.15rem] py-2.5 text-[0.7rem] font-medium uppercase tracking-[0.08em] text-[var(--rd-text-3)]">
+				<span>Uptime</span>
+				<span className="font-[family-name:var(--font-mono)] normal-case tracking-normal">
+					<span className="sm:hidden">last 30 days</span>
+					<span className="max-sm:hidden">last 90 days</span>
+				</span>
 			</div>
-			<div className="mt-10">
-				<div className="card-body">
-					{isServicesLoading ? (
-						<p>Loading...</p>
-					) : (
-						<ul>
-							{(data as Service[]).map((service) => (
-								<ServiceItem key={service.id} item={service} />
-							))}
-						</ul>
-					)}
-				</div>
-				<p className="mt-10 sm:text-lg	text-base font-semibold leading-7 text-[var(--rd-text)]">
-					Recent incident
+			{isServicesLoading ? (
+				<p className="m-0 px-[1.15rem] py-6 font-[family-name:var(--font-mono)] text-[0.8rem] text-[var(--rd-text-3)]">
+					Loading services…
 				</p>
-				<IncidentsSection />
-			</div>
+			) : (
+				<ul className="m-0 list-none p-0">
+					{services.map((service) => (
+						<ServiceItem key={service.id} item={service} />
+					))}
+				</ul>
+			)}
 		</div>
 	);
 };

@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import { Status } from '../../../utils/constants';
-import Log from '../../types/Log';
 import LogDaySummary from '../../types/LogDaySummary';
 import Service from '../../types/Service';
 import ServiceLog from '../log';
@@ -9,76 +8,61 @@ interface ServiceItemProps {
 	item: Service;
 }
 
+const DOT: Record<string, string> = {
+	[Status.OPERATIONAL]: 'bg-[var(--rd-ok)]',
+	[Status.PARTIAL_OUTAGE]: 'bg-[var(--rd-warn)]',
+	[Status.OUTAGE]: 'bg-[var(--rd-down)]',
+};
+
+// days shown on narrow screens (the strip keeps all 90 from sm up)
+const MOBILE_DAYS = 30;
+
 const ServiceItem: FunctionComponent<ServiceItemProps> = ({ item }) => {
-	const Icon = () => {
-		if (item?.status === Status.OPERATIONAL) {
-			return (
-				<svg className="h-6 w-6 flex-none fill-sky-100 stroke-green-500 stroke-2">
-					<circle cx="12" cy="12" r="11" />
-					<path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
-				</svg>
-			);
-		} else if (item?.status === Status.PARTIAL_OUTAGE) {
-			return (
-				<svg
-					className="h-8 w-8 flex-none"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 512 512"
-					fill="orange"
-				>
-					<path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm0 319.91a20 20 0 1 1 20-20 20 20 0 0 1-20 20zm21.72-201.15-5.74 122a16 16 0 0 1-32 0l-5.74-121.94v-.05a21.74 21.74 0 1 1 43.44 0z"></path>
-				</svg>
-			);
-		} else if (item?.status === Status.OUTAGE) {
-			return (
-				<svg
-					className="h-8 w-8 flex-none"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 512 512"
-					fill="red"
-				>
-					<path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm0 319.91a20 20 0 1 1 20-20 20 20 0 0 1-20 20zm21.72-201.15-5.74 122a16 16 0 0 1-32 0l-5.74-121.94v-.05a21.74 21.74 0 1 1 43.44 0z"></path>
-				</svg>
-			);
-		} else {
-			return (
-				<svg className="h-6 w-6 flex-none fill-sky-100 stroke-green-500 stroke-2">
-					<circle cx="12" cy="12" r="11" />
-					<path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
-				</svg>
-			);
-		}
-	};
+	const logs = (item.logs || []) as LogDaySummary[];
 
 	const calculateUpTime = () => {
-		let successCount = item.logs.filter((item) => item.status === Status.OPERATIONAL).length;
+		let successCount = logs.filter((log) => log.status === Status.OPERATIONAL).length;
 		return Math.round((successCount * 100) / 90);
 	};
 
 	return (
-		<div className="mb-10">
-			<div className="flex">
-				<Icon />
-				<div className="ml-4 w-full flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-					<a
-						href={`https://${item.name}`}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-base font-semibold leading-6 text-[var(--rd-text)] hover:underline break-all"
-					>
-						{item.name}
-					</a>
-					<p className="mt-0.5 text-xs text-[var(--rd-text-3)] sm:mt-0 sm:ml-2 sm:whitespace-nowrap sm:self-baseline">
-						{calculateUpTime()}% operational in last 90 days
-					</p>
-				</div>
+		<li className="border-b border-[var(--rd-line)] px-[1.15rem] py-4 last:border-b-0">
+			<div className="flex items-center gap-3">
+				<span
+					aria-hidden
+					className={`inline-block h-2 w-2 shrink-0 rounded-full ${
+						DOT[item.status] ?? 'bg-[var(--rd-text-4)]'
+					}`}
+				/>
+				<a
+					href={`https://${item.name}`}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="min-w-0 flex-1 truncate text-[0.95rem] font-medium tracking-[-0.02em] text-[var(--rd-text)] transition-colors hover:text-[var(--rd-accent-ink)]"
+				>
+					{item.name}
+				</a>
+				<span className="shrink-0 font-[family-name:var(--font-mono)] text-[0.72rem] text-[var(--rd-text-3)]">
+					{calculateUpTime()}% uptime
+				</span>
 			</div>
-			<div className="flex mt-2">
-				{((item.logs || []) as LogDaySummary[]).map((log) => (
-					<ServiceLog key={log.date} item={log} />
+			<div className="mt-3 flex h-6 items-stretch gap-[3px] max-sm:gap-[2px]">
+				{logs.map((log, i) => (
+					<ServiceLog
+						key={log.date}
+						item={log}
+						align={
+							i < logs.length / 4
+								? 'left'
+								: i >= (logs.length * 3) / 4
+									? 'right'
+									: 'center'
+						}
+						mobileHidden={i < logs.length - MOBILE_DAYS}
+					/>
 				))}
 			</div>
-		</div>
+		</li>
 	);
 };
 

@@ -1,6 +1,8 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import Navbar from '../src/components/nav';
+import { Footer } from '../src/components/footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
@@ -40,7 +42,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 				/>
 				<meta name="twitter:image" content="https://status.hovanhoa.net/avatar.png" />
 			</Head>
+			<Navbar />
 			<Component {...pageProps} />
+			<Footer />
 		</>
 	);
 }
