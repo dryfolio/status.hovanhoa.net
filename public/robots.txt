@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Sitemap: https://status.hovanhoa.net/sitemap.xml
+Sitemap: https://music.hovanhoa.net/sitemap.xml
+Host: https://status.hovanhoa.net

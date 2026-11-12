@@ -1,0 +1,35 @@
+# About Hồ Văn Hòa
+
+## Basic Information
+- Name: Hồ Văn Hòa
+- Username: hovanhoa
+- Role: Software Engineer
+- Website: https://hovanhoa.net
+
+## Professional Profile
+Hey there! 👋 I'm Hòa.
+
+Software Engineer with 3+ years of experience. I am confident in my knowledge of software development concepts, industry best practices, and modern software technologies.
+
+## Tech Stack
+- Golang (https://go.dev/)
+- Python (https://www.python.org/)
+- PostgreSQL (https://www.postgresql.org/)
+- MongoDB (https://www.mongodb.com/)
+- AWS (https://aws.amazon.com/)
+- GCP (https://cloud.google.com/)
+
+## Social Links
+- Twitter: https://twitter.com/_hovanhoa_
+- GitHub: https://github.com/hovanhoa
+- LinkedIn: https://linkedin.com/in/hovanhoa
+
+## Additional Resources
+- Insight: https://insight.hovanhoa.net
+- Gallery: https://gallery.hovanhoa.net
+- Status: https://status.hovanhoa.net
+- Info: https://info.hovanhoa.net
+
+## Contact
+Check out https://info.hovanhoa.net to connect with me!
+Monitor my services at https://status.hovanhoa.net.
