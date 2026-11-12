@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev      # Start development server
-npm run build    # Build for production (Next.js static export for GitHub Pages)
+npm run build    # Build for production (Next.js static export into out/)
 npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
@@ -15,7 +15,7 @@ No test framework is configured.
 
 ## Architecture
 
-This repository powers the `hovanhoa | status` page at `https://status.hovanhoa.net/`. The source code is hosted at `https://github.com/dryfolio/status.hovanhoa.net`. It is a static status page hosted on GitHub Pages (or a similar static host). It monitors services via scheduled GitHub Actions and displays status history using data committed to the repository.
+This repository powers the `hovanhoa | status` page at `https://status.hovanhoa.net/`. The source code is hosted at `https://github.com/dryfolio/status.hovanhoa.net`. It is a static status page served from Cloudflare Workers static assets. It monitors services via scheduled GitHub Actions and displays status history using data committed to the repository.
 
 ### Data Flow
 
@@ -27,7 +27,7 @@ This repository powers the `hovanhoa | status` page at `https://status.hovanhoa.
 
 - **`src/services/hooks/useServices.tsx`** — fetches log files from `raw.githubusercontent.com`, aggregates daily summaries, calculates uptime over 90 days
 - **`src/services/hooks/useSystemStatus.tsx`** — derives overall system status from all services
-- **`src/incidents/hooks/useIncidents.tsx`** — fetches GitHub Issues with `incident` label via GitHub API, groups by month
+- **`src/incidents/hooks/useIncidents.tsx`** — fetches GitHub Issues with `incident` label via GitHub API, groups by month. `src/incidents/index.tsx` renders them: an `outage` or `maintenance` label sets the badge, the issue body is shown as a note (paragraphs, `- ` bullets, `**bold**`), and hidden `<!-- started: … -->` / `<!-- resolved: … -->` lines override the dates when an incident is filed after the fact.
 - **`src/utils/constants.tsx`** — `Status` enum: `OPERATIONAL`, `PARTIAL_OUTAGE`, `OUTAGE`, `UNKNOWN`
 
 ### Hardcoded Repository References
@@ -39,7 +39,7 @@ Several hooks contain hardcoded references to the `dryfolio/status.hovanhoa.net`
 
 ### Deployment
 
-GitHub Pages deployment uses `next.config.js` asset prefix set to the repo name in production. The GitHub Actions workflow builds and deploys automatically on push to `main`.
+`output: 'export'` builds the site into `out/`, which `wrangler.jsonc` serves as Cloudflare Workers static assets on `status.hovanhoa.net`. Deploy with `npm run build && npx wrangler deploy`. Health-check log commits don't need a deploy, since the page reads the logs from GitHub at runtime.
 
 ### Styling
 
