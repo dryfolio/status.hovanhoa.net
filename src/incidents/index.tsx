@@ -165,18 +165,24 @@ const IncidentsSection: FunctionComponent = () => {
 											>
 												{kind.label}
 											</span>
-											<p className="m-0 text-[0.95rem] font-medium tracking-[-0.02em] text-[var(--rd-text)]">
-												{incident.title}
-											</p>
-										</div>
-										<p className="m-0 mt-1.5 flex items-center gap-2 text-[0.8rem] text-[var(--rd-text-3)]">
 											<span
-												aria-hidden
-												className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${
-													resolved ? 'bg-[var(--rd-ok)]' : 'bg-[var(--rd-warn)]'
+												className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[0.68rem] font-medium uppercase tracking-[0.06em] ${
+													resolved
+														? 'border-[var(--rd-ok)] text-[var(--rd-ok)]'
+														: 'border-[var(--rd-warn)] text-[var(--rd-warn)]'
 												}`}
-											/>
-											{resolved ? 'Resolved' : 'Investigating'}
+											>
+												<span
+													aria-hidden
+													className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${
+														resolved ? 'bg-[var(--rd-ok)]' : 'bg-[var(--rd-warn)]'
+													}`}
+												/>
+												{resolved ? 'Resolved' : 'Investigating'}
+											</span>
+										</div>
+										<p className="m-0 mt-1.5 text-[0.95rem] font-medium tracking-[-0.02em] text-[var(--rd-text)]">
+											{incident.title}
 										</p>
 										{blocks.length > 0 && <Note blocks={blocks} />}
 									</div>
