@@ -11,11 +11,7 @@ function useIncidents() {
 		const loadData = async () => {
 			setIsLoading(true);
 			try {
-				const response = await fetch(
-					'https://api.github.com/repos/dryfolio/status.hovanhoa.net/issues?per_page=20&state=all&labels=incident'
-				);
-				const issues = await response.json();
-				console.log('issues', issues);
+				const issues = await loadIssues();
 				const monthlyIncident = devideMonthly(
 					issues.map((issue: any) => ({
 						id: issue.id,
@@ -24,10 +20,10 @@ function useIncidents() {
 						status: issue.state,
 						created_at: issue.created_at,
 						closed_at: issue.closed_at,
-						labels: issue.labels.map((label: any) => label.name),
+						// The mirror stores label names; the API returns label objects.
+						labels: issue.labels.map((label: any) => label.name ?? label),
 					}))
 				);
-				console.log('issues', monthlyIncident);
 				setData(monthlyIncident);
 			} catch (e: any) {
 				setError(e);
@@ -39,6 +35,31 @@ function useIncidents() {
 	}, []);
 
 	return [data, isLoading, error];
+}
+
+// public/incidents.json is kept in sync with the `incident` issues by
+// .github/workflows/incidents.yml. Reading it from raw.githubusercontent.com
+// avoids the issues API's 60 requests/hour limit per IP, which visitors behind
+// a shared proxy run out of; the API is only a fallback.
+const SOURCES = [
+	'https://raw.githubusercontent.com/dryfolio/status.hovanhoa.net/main/public/incidents.json',
+	'https://api.github.com/repos/dryfolio/status.hovanhoa.net/issues?per_page=20&state=all&labels=incident',
+];
+
+async function loadIssues(): Promise<any[]> {
+	let lastError: unknown;
+	for (const url of SOURCES) {
+		try {
+			const response = await fetch(url);
+			if (!response.ok) throw new Error(`${response.status} ${url}`);
+			const issues = await response.json();
+			if (!Array.isArray(issues)) throw new Error(`Unexpected response from ${url}`);
+			return issues;
+		} catch (e) {
+			lastError = e;
+		}
+	}
+	throw lastError;
 }
 
 function devideMonthly(issues: any[]) {
@@ -66,7 +87,6 @@ function devideMonthly(issues: any[]) {
 				incidents: [],
 			};
 			r[key].incidents.push(date);
-			console.log('issues', r);
 			return r;
 		}, {})
 	).forEach((month: any) => {

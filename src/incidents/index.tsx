@@ -101,13 +101,28 @@ const Note: FunctionComponent<{ blocks: Block[] }> = ({ blocks }) => (
 );
 
 const IncidentsSection: FunctionComponent = () => {
-	const [monthlyIncidents, isIncidentsLoading] = useIncidents();
+	const [monthlyIncidents, isIncidentsLoading, incidentsError] = useIncidents();
 	const months = (monthlyIncidents as MonthlyIncident[]) || [];
 
 	if (isIncidentsLoading) {
 		return (
 			<p className="m-0 font-[family-name:var(--font-mono)] text-[0.8rem] text-[var(--rd-text-3)]">
 				Loading incidents…
+			</p>
+		);
+	}
+
+	if (incidentsError) {
+		return (
+			<p className="m-0 border-t border-[var(--rd-line)] pt-5 text-[0.95rem] text-[var(--rd-text-2)]">
+				Couldn’t load incidents right now.{' '}
+				<a
+					href="https://github.com/dryfolio/status.hovanhoa.net/issues?q=label%3Aincident"
+					className="text-[var(--rd-text)] underline underline-offset-2"
+				>
+					See them on GitHub
+				</a>
+				.
 			</p>
 		);
 	}
