@@ -1,14 +1,14 @@
 [
   {
     "body": "<!-- started: 2026-11-11 -->\n<!-- resolved: 2026-11-12 -->\n\nVercel paused the hovanhoa.net team after it went over the **Hobby plan's fair-use limits**, so every site answered with a \"deployment paused\" page instead of its content.\n\n- **Nov 11** · Vercel pauses deployments and every *.hovanhoa.net site goes offline.\n- **Nov 12** · Each site is rebuilt as a static export and moved to **Cloudflare Workers**, then DNS is switched over one site at a time.\n- **Nov 12** · Live data is back: Spotify on music, analytics on insight and the latest posts on the home page refresh from small Worker APIs.\n\nAll sites are now served from Cloudflare's edge. Nothing changes for visitors.\n",
-    "closed_at": null,
+    "closed_at": "2026-11-17T06:57:23Z",
     "created_at": "2026-11-12T09:47:08Z",
     "id": 6347135404,
     "labels": [
       "incident",
       "outage"
     ],
-    "state": "open",
+    "state": "closed",
     "title": "Sites offline after Vercel paused the team; moved to Cloudflare"
   }
 ]
