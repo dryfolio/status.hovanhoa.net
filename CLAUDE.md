@@ -27,7 +27,7 @@ This repository powers the `hovanhoa | status` page at `https://status.hovanhoa.
 
 - **`src/services/hooks/useServices.tsx`** — fetches log files from `raw.githubusercontent.com`, aggregates daily summaries, calculates uptime over 90 days
 - **`src/services/hooks/useSystemStatus.tsx`** — derives overall system status from all services
-- **`src/incidents/hooks/useIncidents.tsx`** — fetches GitHub Issues with `incident` label via GitHub API, groups by month. `src/incidents/index.tsx` renders them: an `outage` or `maintenance` label sets the badge, the issue body is shown as a note (paragraphs, `- ` bullets, `**bold**`), and hidden `<!-- started: … -->` / `<!-- resolved: … -->` lines override the dates when an incident is filed after the fact.
+- **`src/incidents/hooks/useIncidents.tsx`** — reads `public/incidents.json` from `raw.githubusercontent.com` (falling back to the GitHub Issues API), groups by month. `.github/workflows/incidents.yml` rewrites that file whenever an issue changes, mirroring issues with the `incident` label; the browser no longer depends on the API's 60 requests/hour unauthenticated limit. `src/incidents/index.tsx` renders them: an `outage` or `maintenance` label sets the badge, the issue body is shown as a note (paragraphs, `- ` bullets, `**bold**`), and hidden `<!-- started: … -->` / `<!-- resolved: … -->` lines override the dates when an incident is filed after the fact.
 - **`src/utils/constants.tsx`** — `Status` enum: `OPERATIONAL`, `PARTIAL_OUTAGE`, `OUTAGE`, `UNKNOWN`
 
 ### Hardcoded Repository References
@@ -35,7 +35,7 @@ This repository powers the `hovanhoa | status` page at `https://status.hovanhoa.
 Several hooks contain hardcoded references to the `dryfolio/status.hovanhoa.net` repository that must be updated if forking:
 
 - Raw content URLs in `useServices.tsx` / `useSystemStatus.tsx`
-- GitHub Issues API URL in `useIncidents.tsx`
+- Raw content and GitHub Issues API URLs in `useIncidents.tsx`
 
 ### Deployment
 

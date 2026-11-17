@@ -1,0 +1,38 @@
+name: Sync Incidents
+
+# Mirrors issues labelled `incident` into public/incidents.json, which the page
+# reads from raw.githubusercontent.com instead of the rate-limited issues API.
+on:
+    issues:
+        types: [opened, edited, closed, reopened, labeled, unlabeled, deleted, transferred]
+    workflow_dispatch:
+
+permissions:
+    contents: write
+    issues: read
+
+concurrency:
+    group: incidents
+    cancel-in-progress: false
+
+jobs:
+    sync:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Export incident issues
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  gh api "repos/${{ github.repository }}/issues?state=all&labels=incident&per_page=20" \
+                    --jq '[.[] | {id, title, body, state, created_at, closed_at, labels: [.labels[].name]}]' \
+                    | jq . > public/incidents.json
+            - name: Commit if changed
+              run: |
+                  git config user.name 'hovanhoa-bot'
+                  git config user.email 'hovanhoa.net@gmail.com'
+                  git add public/incidents.json
+                  git diff --cached --quiet && exit 0
+                  git commit -m '[Automated] Update incidents'
+                  git pull --rebase
+                  git push
