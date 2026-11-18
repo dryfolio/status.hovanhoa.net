@@ -166,7 +166,7 @@ const IncidentsSection: FunctionComponent = () => {
 												{kind.label}
 											</span>
 											<span
-												className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[0.68rem] font-medium uppercase tracking-[0.06em] ${
+												className={`inline-flex items-center gap-1 rounded-full border px-1.5 py-px text-[0.6rem] font-medium uppercase tracking-[0.06em] ${
 													resolved
 														? 'border-[var(--rd-ok)] text-[var(--rd-ok)]'
 														: 'border-[var(--rd-warn)] text-[var(--rd-warn)]'
@@ -174,7 +174,7 @@ const IncidentsSection: FunctionComponent = () => {
 											>
 												<span
 													aria-hidden
-													className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${
+													className={`inline-block h-1 w-1 shrink-0 rounded-full ${
 														resolved ? 'bg-[var(--rd-ok)]' : 'bg-[var(--rd-warn)]'
 													}`}
 												/>
