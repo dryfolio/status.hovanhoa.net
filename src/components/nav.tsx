@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import {
 	RiBookOpenLine,
 	RiBookShelfLine,
+	RiFilmLine,
 	RiGithubFill,
 	RiHome5Line,
 	RiImageLine,
@@ -24,6 +25,7 @@ const MUSIC_URL = 'https://music.hovanhoa.net';
 const STATUS_URL = 'https://status.hovanhoa.net';
 const INFO_URL = 'https://info.hovanhoa.net';
 const BOOK_URL = 'https://book.hovanhoa.net';
+const MOVIE_URL = 'https://movie.hovanhoa.net';
 const GITHUB = 'hovanhoa';
 const TWITTER = '_hovanhoa_';
 const LINKEDIN = 'hovanhoa';
@@ -104,6 +106,13 @@ const COLUMNS: Column[] = [
 				icon: RiBookShelfLine,
 				external: true,
 			},
+			{
+				label: 'movie',
+				desc: 'watch log',
+				href: MOVIE_URL,
+				icon: RiFilmLine,
+				external: true,
+			},
 		],
 	},
 	{
@@ -149,6 +158,7 @@ const QUICK_LINKS = [
 	{ label: 'gallery', href: GALLERY_URL, tier: 'hidden lg:inline-flex' },
 	{ label: 'music', href: MUSIC_URL, tier: 'hidden lg:inline-flex' },
 	{ label: 'book', href: BOOK_URL, tier: 'hidden xl:inline-flex' },
+	{ label: 'movie', href: MOVIE_URL, tier: 'hidden xl:inline-flex' },
 	{ label: 'status', href: STATUS_URL, tier: 'hidden xl:inline-flex' },
 ];
 
